@@ -9,19 +9,19 @@
  */
 
 add_shortcode('get_field', function($atts) {
-	$a = shortcode_atts([
-		'field' => '',
-		'origin' => '',
-	], $atts);
-	if ('' === $a['field']) {
-		return '';
-	}
-	return gf($a['field'], $a['origin']);
+    $a = shortcode_atts([
+	'field' => '',
+	'origin' => '',
+    ], $atts);
+    if ('' === $a['field']) {
+	return '';
+    }
+    return gf($a['field'], $a['origin']);
 });
 
 function gf($slug, $value = '') {
-	if (function_exists('get_field')) {
-		return get_field($slug, $value);
-	}
+    if (function_exists('get_field')) {
+	return get_field($slug, $value);
+    }
 }
 
