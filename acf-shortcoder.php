@@ -36,6 +36,17 @@ add_shortcode('loop_repeater', function($atts, $iteration) {
 	return ob_get_clean();
     }
 });
+
+add_shortcode('sub_field', function($atts) {
+    $a = shortcode_atts([
+	'field' => '',
+    ], $atts);
+    if ('' === $a['field']) {
+	return '';
+    }
+    return get_sub_field($a['field']);
+});
+
 function gf($slug, $value = '') {
     if (function_exists('get_field')) {
 	return get_field($slug, $value);
