@@ -44,11 +44,15 @@ add_shortcode('sub_field', function($atts) {
     if ('' === $a['field']) {
 	    return '';
     }
-    return get_sub_field($a['field']);
+    return gsf($a['field']);
 });
 
-function gf($slug, $value = '') {
-    if (function_exists('get_field')) {
-	    return get_field($slug, $value);
-    }
+function gf($slug, $local = '') {
+    return function_exists('get_field') ?
+        get_field($slug, $local) : '';
+}
+
+function gsf($slug) {
+    return function_exists('get_sub_field') ?
+        get_sub_field($slug) : '';
 }
