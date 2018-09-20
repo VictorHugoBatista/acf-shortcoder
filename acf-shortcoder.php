@@ -10,46 +10,45 @@
 
 add_shortcode('get_field', function($atts) {
     $a = shortcode_atts([
-	'field' => '',
-	'origin' => '',
+	    'field' => '',
+	    'origin' => '',
     ], $atts);
     if ('' === $a['field']) {
-	return '';
+	    return '';
     }
     return gf($a['field'], $a['origin']);
 });
 
 add_shortcode('loop_repeater', function($atts, $iteration) {
     $a = shortcode_atts([
-	'field' => '',
-	'origin' => '',
+	    'field' => '',
+	    'origin' => '',
     ], $atts);
     if ('' === $a['field']) {
-	return '';
+	    return '';
     }
     if (have_rows($a['field'], $a['origin'])) {
-	ob_start();
-	while (have_rows($a['field'], $a['origin'])) {
-	    the_row();
-	    echo do_shortcode($iteration);
-	}
-	return ob_get_clean();
+        ob_start();
+        while (have_rows($a['field'], $a['origin'])) {
+            the_row();
+            echo do_shortcode($iteration);
+        }
+        return ob_get_clean();
     }
 });
 
 add_shortcode('sub_field', function($atts) {
     $a = shortcode_atts([
-	'field' => '',
+	    'field' => '',
     ], $atts);
     if ('' === $a['field']) {
-	return '';
+	    return '';
     }
     return get_sub_field($a['field']);
 });
 
 function gf($slug, $value = '') {
     if (function_exists('get_field')) {
-	return get_field($slug, $value);
+	    return get_field($slug, $value);
     }
 }
-
