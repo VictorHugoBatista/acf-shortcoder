@@ -16,7 +16,7 @@ add_shortcode('get_field', function($atts) {
     if ('' === $a['field']) {
 	    return '';
     }
-    return gf($a['field'], $a['origin']);
+    return secured_get_field($a['field'], $a['origin']);
 });
 
 add_shortcode('loop_repeater', function($atts, $iteration) {
@@ -44,15 +44,15 @@ add_shortcode('sub_field', function($atts) {
     if ('' === $a['field']) {
 	    return '';
     }
-    return gsf($a['field']);
+    return secured_get_sub_field($a['field']);
 });
 
-function gf($slug, $local = '') {
+function secured_get_field($slug, $local = '') {
     return function_exists('get_field') ?
         get_field($slug, $local) : '';
 }
 
-function gsf($slug) {
+function secured_get_sub_field($slug) {
     return function_exists('get_sub_field') ?
         get_sub_field($slug) : '';
 }
