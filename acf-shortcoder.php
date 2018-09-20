@@ -27,14 +27,14 @@ add_shortcode('loop_repeater', function($atts, $iteration) {
     if ('' === $a['field']) {
 	    return '';
     }
+    ob_start();
     if (secured_have_rows($a['field'], $a['origin'])) {
-        ob_start();
         while (secured_have_rows($a['field'], $a['origin'])) {
             secured_the_row();
             echo do_shortcode($iteration);
         }
-        return ob_get_clean();
     }
+    return ob_get_clean();
 });
 
 add_shortcode('sub_field', function($atts) {
