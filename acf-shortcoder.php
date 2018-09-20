@@ -19,6 +19,23 @@ add_shortcode('get_field', function($atts) {
     return gf($a['field'], $a['origin']);
 });
 
+add_shortcode('loop_repeater', function($atts, $iteration) {
+    $a = shortcode_atts([
+	'field' => '',
+	'origin' => '',
+    ], $atts);
+    if ('' === $a['field']) {
+	return '';
+    }
+    if (have_rows($a['field'], $a['origin'])) {
+	ob_start();
+	while (have_rows($a['field'], $a['origin'])) {
+	    the_row();
+	    echo do_shortcode($iteration);
+	}
+	return ob_get_clean();
+    }
+});
 function gf($slug, $value = '') {
     if (function_exists('get_field')) {
 	return get_field($slug, $value);
