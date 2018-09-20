@@ -27,10 +27,10 @@ add_shortcode('loop_repeater', function($atts, $iteration) {
     if ('' === $a['field']) {
 	    return '';
     }
-    if (have_rows($a['field'], $a['origin'])) {
+    if (secured_have_rows($a['field'], $a['origin'])) {
         ob_start();
-        while (have_rows($a['field'], $a['origin'])) {
-            the_row();
+        while (secured_have_rows($a['field'], $a['origin'])) {
+            secured_the_row();
             echo do_shortcode($iteration);
         }
         return ob_get_clean();
@@ -55,4 +55,15 @@ function secured_get_field($slug, $local = '') {
 function secured_get_sub_field($slug) {
     return function_exists('get_sub_field') ?
         get_sub_field($slug) : '';
+}
+
+function secured_have_rows($slug, $local = '') {
+    return function_exists('have_rows') ?
+        have_rows($slug, $local) : false;
+}
+
+function secured_the_row() {
+    if (function_exists('the_row')) {
+        the_row();
+    }
 }
